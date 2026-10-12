@@ -1,0 +1,65 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Held actions</title>
+<style>
+  :root { --navy:#2B2C5F; --cream:#FBF8F4; --line:#E8E0D5; --coral:#E8835B; --pink:#EE9DA6; --green:#2E7D4F; --mint:#E7F3EA; }
+  * { box-sizing:border-box; margin:0; }
+  html,body { width:1600px; height:920px; background:var(--cream); color:var(--navy);
+    font-family: system-ui,-apple-system,sans-serif; -webkit-font-smoothing:antialiased; overflow:hidden; }
+  .grain { position:fixed; inset:0; pointer-events:none; opacity:.05; mix-blend-mode:multiply; }
+  .wrap { position:relative; padding:64px 72px 0; height:100%; }
+  .pill { display:inline-flex; gap:10px; align-items:center; background:var(--mint); color:var(--green);
+    font:600 13px/1 ui-monospace,Menlo,monospace; letter-spacing:.08em; padding:9px 14px; border-radius:999px; }
+  .pill i { width:7px; height:7px; border-radius:50%; background:var(--green); display:block; }
+  h1 { margin-top:26px; font-size:56px; line-height:1.04; font-weight:750; letter-spacing:-.02em;
+    background:linear-gradient(90deg,var(--coral),var(--pink)); -webkit-background-clip:text; color:transparent; width:max-content; }
+  .sub { margin-top:12px; font-size:26px; font-weight:560; letter-spacing:-.01em; }
+  .stage { position:relative; height:520px; margin-top:44px; }
+  .code { position:absolute; left:0; top:22px; width:600px; background:#fff; border:1px solid var(--line);
+    border-radius:16px; padding:26px 28px; font:15px/1.75 ui-monospace,Menlo,monospace; box-shadow:0 14px 30px rgba(43,44,95,.06); }
+  .code .req { color:#8A8BB0; font-size:13px; letter-spacing:.06em; margin-bottom:10px; }
+  .code b { font-weight:600; } .k { color:#8A8BB0; display:inline-block; width:118px; }
+  .block { color:#C2412D; font-weight:700; }
+  .route { position:absolute; left:28px; top:300px; width:520px; font-size:17px; line-height:1.45; }
+  .route .ar { font:600 14px ui-monospace,Menlo,monospace; color:var(--coral); letter-spacing:.06em; display:block; margin-bottom:6px; }
+  .shot { position:absolute; right:0; top:0; width:900px; border-radius:16px; border:1px solid var(--line);
+    box-shadow:0 34px 70px rgba(43,44,95,.16), 0 4px 12px rgba(43,44,95,.06); background:#fff; }
+  .trail { position:absolute; left:72px; right:72px; bottom:84px; display:flex; align-items:center; gap:10px;
+    font:600 14px ui-monospace,Menlo,monospace; flex-wrap:nowrap; }
+  .chip { padding:9px 12px; border-radius:10px; background:#fff; border:1px solid var(--line); white-space:nowrap; }
+  .chip small { font-weight:500; color:#6E6F98; margin-left:6px; }
+  .c-block { color:#C2412D; } .c-held { color:#B0661F; } .c-ok { color:var(--green); }
+  .to { color:var(--pink); font-weight:700; }
+  .foot { position:absolute; left:72px; right:72px; bottom:36px; display:flex; justify-content:space-between;
+    font-size:14px; color:#6E6F98; }
+  .foot span:last-child { font-family:ui-monospace,Menlo,monospace; color:var(--navy); }
+</style></head>
+<body>
+<svg class="grain" width="1600" height="920"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(#n)"/></svg>
+<div class="wrap">
+  <span class="pill"><i></i>HELD ACTIONS · AN ADD-ON FOR THE POLICY API</span>
+  <h1>“Exceptions reach the right person.”</h1>
+  <p class="sub">Here is that path, built on your documented Policy API.</p>
+
+  <div class="stage">
+    <div class="code">
+      <div class="req">POST /v1/policy/decide</div>
+      <div><span class="k">action</span><b>statuspage/set_status</b></div>
+      <div><span class="k">disposition</span><span class="block">BLOCK</span></div>
+      <div><span class="k">rule</span>rule_status_page_ic</div>
+      <div><span class="k">reason</span>Customer-facing status changes</div>
+      <div><span class="k"></span>require incident commander approval.</div>
+    </div>
+    <div class="route"><span class="ar">HELD, NOT DROPPED →</span>The blocked write waits for the one person allowed to lift the Rule, with the exact payload in front of them.</div>
+    <img class="shot" src="card-ic.png" alt="Approver card">
+  </div>
+
+  <div class="trail">
+    <span class="chip c-block">BLOCK<small>rule_status_page_ic</small></span><span class="to">→</span>
+    <span class="chip c-held">HELD<small>for incident commander</small></span><span class="to">→</span>
+    <span class="chip c-ok">APPROVED<small>“Verified payments recovered”</small></span><span class="to">→</span>
+    <span class="chip">re-decided<small>ALLOW · new invocationId</small></span><span class="to">→</span>
+    <span class="chip c-ok">EXECUTED<small>INC-2291 resolved</small></span>
+  </div>
+  <div class="foot"><span>Python, standard library only · 7 tests · every step in a hash-chained audit log</span><span>github.com/srikrishnavansi/held-actions</span></div>
+</div>
+</body></html>
